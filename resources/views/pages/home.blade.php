@@ -12,8 +12,6 @@
 			@endforeach
 		</ol>
 
-		
-
 @endif
 
 	<div class="title">Home Page</div>

@@ -17,6 +17,12 @@ Route::get('about', 'PagesController@about');
 Route::get('contact', 'PagesController@contact');
 
 Route::get('home', 'PagesController@home');
+
+Route::get('articles', 'ArticlesController@index');
+
+Route::get('articles/{id}', 'ArticlesController@show'); //get request from articles/1 or articles/m or anythng else
+
+Route::get('tasks', 'TasksController@index');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
