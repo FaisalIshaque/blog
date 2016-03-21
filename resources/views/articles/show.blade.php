@@ -3,8 +3,9 @@
 @section('content')
 		
 			<div class="body">
+
 			<span>{{ $articles->body }}</span><br>
-			{{-- <p>{{ $articles->published_at }}</p> --}}
+			<p>{{ $articles->published_at }}</p>
 			<span>{{ $articles->author }}</span>
 			<br><br><br>
 			</div>
