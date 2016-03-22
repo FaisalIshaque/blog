@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 use App\Http\Requests\ArticleRequest;
 
@@ -12,7 +12,7 @@ use App\article;
 
 //use App\Http\Requests\Request;
 
-//use Request; //used for facade
+use Request; //used for facade
 
 
 class ArticlesController extends Controller
@@ -56,8 +56,9 @@ class ArticlesController extends Controller
         return redirect('articles');
 
     }
-
-  /*  public function store(CreateArticleRequest $request)
+    
+/*
+   public function store(ArticleRequest $request)
     {
         article::create($request->all());
 

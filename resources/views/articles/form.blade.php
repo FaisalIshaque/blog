@@ -1,3 +1,4 @@
+{!! Form::hidden('user_id', 4) !!}
 <!--  -->
 <div class="form-group">
 
