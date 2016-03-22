@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\ArticleRequest;
 
 use Carbon\Carbon;
 
@@ -20,10 +20,7 @@ class ArticlesController extends Controller
     //
     public function index()
     {
-    	//$articles = article::latest('published_at')->get();
-        //to get all articles
-
-        //$articles = article::latest('published_at')->where('published_at','<=', Carbon::now())->get();
+    	//$articles = article::latest('published_at')->where('published_at','<=', Carbon::now())->get();
         //to display articles whose publish date is not in future i.e its it less than carbon::now()
 
         $articles = article::latest('published_at')->Published()->get();
@@ -34,6 +31,7 @@ class ArticlesController extends Controller
     }
         //the 'article' in blue is the model "article", we are fetching all data from there into $articles
         //then return that data as is.
+
 
     public function show($id)
     {
@@ -50,21 +48,27 @@ class ArticlesController extends Controller
 
     }
 
+      
+      public function store(ArticleRequest $request)
+    {
+        article::create(Request::all());
+
+        return redirect('articles');
+
+    }
+
   /*  public function store(CreateArticleRequest $request)
     {
-    	//article::create(Request::all());
-
         article::create($request->all());
 
-    	return redirect('articles');
+        return redirect('articles');
 
     }
     */
 
-     public function store(Request $request)
-    {
-        //article::create(Request::all());
 
+    /* public function store(Request $request)
+    {
         $this->validate($request, [
 
             'title' => 'required|min:5',
@@ -81,5 +85,23 @@ class ArticlesController extends Controller
 
         return redirect('articles');
 
+    }*/
+
+    public function edit($id)
+    {
+        $article = article::findOrFail($id);
+
+        return view('articles/edit', compact('article'));
     }
+
+
+    public function update($id, ArticleRequest $request)
+    {
+        $article = article::findOrFail($id);
+
+        $article->update($request->all());
+
+        return redirect('articles');
+    }
+
 }
