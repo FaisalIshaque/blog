@@ -35,3 +35,7 @@ class CreateArticlesTable extends Migration
         Schema::drop('articles');
     }
 }
+//$table->renameColumn('from', 'to');
+//$table->text('xyz');
+//$table->string('xyz');
+//$table->dropColumn('xyz');

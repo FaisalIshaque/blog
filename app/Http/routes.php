@@ -25,11 +25,12 @@
 Route::group(['middleware' => ['web']], function () {
 
 	Route::get('/', 'PagesController@index');
-	Route::get('about', 'PagesController@about');
 	Route::get('contact', 'PagesController@contact');
 	Route::get('home', 'PagesController@home');
+	Route::get('about',  ['middleware' => 'auth', 'uses' =>  'PagesController@about']);
+//	Route::get('about', 'PagesController@about');
 
-	Route::resource('articles', 'ArticlesController');
+	Route::resource('articles','ArticlesController');
 	/*
 	Route::get('articles', 'ArticlesController@index');
 	Route::get('articles/create', 'ArticlesController@create');
@@ -41,5 +42,32 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('tasks', 'TasksController@index');
 	Route::get('tasks/{id}', 'TasksController@show');
-    //
+
+	/*Route::controllers([
+		'auth' => 'Auth\AuthController',
+		'password' => 'Auth\PasswordController',
+		]);
+	// Authentication routes
+	Route::get('auth/login', 'Auth\AuthController@getLogin');
+	Route::post('auth/login', 'Auth\AuthController@postLogin');
+	Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+	// Registration routes...
+	Route::get('auth/register', 'Auth\AuthController@getRegister');
+	Route::post('auth/register', 'Auth\AuthController@postRegister');
+    //*/
 });
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::get('foo', ['middleware' => ['manager'], function ()
+	{
+	    return 'This page may only be viewed by managers.';
+	}]);
+    
+});
+
+

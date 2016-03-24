@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username',
+        'name',
         'email',
         'password',
     ];
@@ -29,5 +29,11 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany('App\article');
+    }
+
+    public function isManager()
+    {
+        return false; //will redirect to 'home' route
+        //return true; //will show the 'foo' route 
     }
 }

@@ -27,6 +27,16 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        $router->model('articles', 'App\article');
+
+        //the above willa pply globaly, but can overwrite the functionality for a specific purpose as well
+        /*
+            $router->bind('articles', function($id)
+            {
+                return \App\article::published()->findorfail($id);
+            });
+        */
     }
 
     /**

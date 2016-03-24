@@ -4,9 +4,9 @@
 		
 			<div class="body">
 
-			<span>{{ $articles->body }}</span><br>
-			<p>{{ $articles->published_at }}</p>
-			<span>{{ $articles->author }}</span>
+			<span>{{ $article->body }}</span><br>
+			<p>{{ $article->published_at }}</p>
+			<span>{{ $article->author }}</span>
 			<br><br><br>
 			</div>
 

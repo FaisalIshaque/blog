@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 use App\Http\Requests\ArticleRequest;
 
 use Carbon\Carbon;
 
 use App\article;
+use Auth;
 
 //use App\Http\Requests\Request;
 
-use Request; //used for facade
+//use Request; //used for facade
 
 
 class ArticlesController extends Controller
 {
-    //
+    //authentican user with following
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'index']);
+        //$this->middleware('auth', ['only' => 'create']);
+    }
+
     public function index()
     {
     	//$articles = article::latest('published_at')->where('published_at','<=', Carbon::now())->get();
@@ -33,11 +41,10 @@ class ArticlesController extends Controller
         //then return that data as is.
 
 
-    public function show($id)
+    public function show(article $article)
     {
-    	$articles = article::findOrFail($id);
 
-    	return view('articles.show', compact('articles'));
+    	return view('articles.show', compact('article'));
 
     }
 
@@ -49,24 +56,26 @@ class ArticlesController extends Controller
     }
 
       
-      public function store(ArticleRequest $request)
+
+   public function store(ArticleRequest $request)
     {
-        article::create(Request::all());
+        $article = new article($request->all());
+
+        Auth::user()->articles()->save($article);
 
         return redirect('articles');
 
     }
     
-/*
-   public function store(ArticleRequest $request)
+
+   /*   public function store(ArticleRequest $request)
     {
-        article::create($request->all());
+        article::create(Request::all());
 
         return redirect('articles');
 
-    }
-    */
-
+    }*/
+    
 
     /* public function store(Request $request)
     {
@@ -88,18 +97,16 @@ class ArticlesController extends Controller
 
     }*/
 
-    public function edit($id)
+    public function edit(article $article)
     {
-        $article = article::findOrFail($id);
-
+       
         return view('articles/edit', compact('article'));
     }
 
 
-    public function update($id, ArticleRequest $request)
+    public function update(article $article, ArticleRequest $request)
     {
-        $article = article::findOrFail($id);
-
+       
         $article->update($request->all());
 
         return redirect('articles');

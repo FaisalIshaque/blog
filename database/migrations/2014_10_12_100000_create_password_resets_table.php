@@ -29,3 +29,7 @@ class CreatePasswordResetsTable extends Migration
         Schema::drop('password_resets');
     }
 }
+//$table->renameColumn('from', 'to');
+//$table->text('xyz');
+//$table->string('xyz');
+//$table->dropColumn('xyz');
