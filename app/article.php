@@ -35,10 +35,20 @@ class article extends Model
     {
     	$query->where('published_at','<=', Carbon::now());
     }
-
+    
+    //Article belongs to user
     public function user()
     {
         return $this->belongsTo('App\user');
     }
 
+    public function tags()
+    {
+    	return $this->belongsToMany('App\tag')->withTimestamps();
+    }
+
+    public function getTagListAttribute()
+    {
+    	return $this->tags->lists('id')->all();
+    }
 }

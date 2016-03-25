@@ -13,14 +13,18 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     
-/*
-    mix.sass('app.scss').coffee('module.coffee');
+
+   // mix.sass('app.scss').coffee('module.coffee');
 
     mix.styles([
     	'vendor/normalize.css',
     	'app.css'
     	], null, 'public/css');
 
-*/
-    mix.phpUnit();
+    	//the second argument 'null' is the ouput directory.file
+    	//the third output 'public/css' is the base directory
+
+    mix.version('public/css/all.css');
+
+  //  mix.phpUnit();
 });

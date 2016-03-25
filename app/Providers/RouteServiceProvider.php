@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $router->model('articles', 'App\article');
 
-        //the above willa pply globaly, but can overwrite the functionality for a specific purpose as well
+        //the above will apply globaly, but we can overwrite the functionality for a specific purpose as well like below.
         /*
             $router->bind('articles', function($id)
             {

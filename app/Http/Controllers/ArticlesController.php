@@ -9,7 +9,12 @@ use App\Http\Requests\ArticleRequest;
 use Carbon\Carbon;
 
 use App\article;
+
+use App\tag;
+
 use Auth;
+
+use Flash;
 
 //use App\Http\Requests\Request;
 
@@ -50,8 +55,11 @@ class ArticlesController extends Controller
 
     public function create()
     {
+        $tags = tag::lists('name', 'id');
 
-    	return view('articles.create');
+
+
+    	return view('articles.create', compact('tags'));
 
     }
 
@@ -59,9 +67,31 @@ class ArticlesController extends Controller
 
    public function store(ArticleRequest $request)
     {
-        $article = new article($request->all());
 
-        Auth::user()->articles()->save($article);
+        //dd($request->get('tag_list[]'));
+        //$article = new article($request->all());
+
+        //Auth::user()->articles()->save($article);
+
+        $article = Auth::user()->articles()->create($request->all());
+        //the line above can be used to replace the two lines above. just remember tinker Create and Save methods.
+
+        $article->tags()->attach($request->input('tag_list'));
+
+
+
+        //\Session::flash('flash_message', 'Your atricle has been created and saved');
+
+        //\Session::flash('flash_message_important', true);
+
+        //Session facade -> flash function -> ('flash id-tag', ' message to appear in flash');
+        //now we need our view to display the flash above.
+
+        flash('Your Article Has Been Created And Saved');
+
+        //flash()->success('Your Article Has Been Created And Saved');
+        //flash()->overlay('Your Article Has Been Created And Saved', 'Good Job');
+
 
         return redirect('articles');
 
@@ -99,8 +129,9 @@ class ArticlesController extends Controller
 
     public function edit(article $article)
     {
+        $tags = tag::lists('name', 'id');
        
-        return view('articles/edit', compact('article'));
+        return view('articles.edit', compact('article', 'tags'));
     }
 
 
