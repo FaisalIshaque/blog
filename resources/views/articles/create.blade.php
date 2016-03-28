@@ -6,7 +6,7 @@
 
 	<hr/>
 
-	{!! Form::open(['url' => 'articles']) !!}
+	{!! Form::model($article = new \App\article, ['url' => 'articles']) !!}
 		
 		@include('articles.form', ['submitBtnTxt' => 'Add Article'])
 		

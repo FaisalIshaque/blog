@@ -28,15 +28,29 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot($router);
 
-        $router->model('articles', 'App\article');
+        //$router->model('articles', 'App\article');
 
-        //the above will apply globaly, but we can overwrite the functionality for a specific purpose as well like below.
+        //the above will apply globaly to all articles *see below*,
+        //but we can overwrite the functionality for a specific purpose with a closure.
         /*
             $router->bind('articles', function($id)
             {
                 return \App\article::published()->findorfail($id);
             });
         */
+
+        //**to find the articles which have been published only
+        $router->bind('articles', function($id)
+        {
+            return \App\article::published()->findOrFail($id);
+        });
+
+        $router->bind('tags', function($name)
+        {
+            return \App\tag::where('name', $name)->firstOrFail();
+        });
+
+        //$router->model('tags', 'App\tag');
     }
 
     /**

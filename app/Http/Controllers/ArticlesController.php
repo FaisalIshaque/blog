@@ -38,6 +38,7 @@ class ArticlesController extends Controller
 
         $articles = article::latest('published_at')->Published()->get();
 
+
         //$articles = article::latest('published_at')->UnPublished()->get();
 
     	return view('articles.articles', compact('articles'));
@@ -69,16 +70,9 @@ class ArticlesController extends Controller
     {
 
         //dd($request->get('tag_list[]'));
-        //$article = new article($request->all());
+       
 
-        //Auth::user()->articles()->save($article);
-
-        $article = Auth::user()->articles()->create($request->all());
-        //the line above can be used to replace the two lines above. just remember tinker Create and Save methods.
-
-        $article->tags()->attach($request->input('tag_list'));
-
-
+        $this->createArticle($request);
 
         //\Session::flash('flash_message', 'Your atricle has been created and saved');
 
@@ -137,10 +131,34 @@ class ArticlesController extends Controller
 
     public function update(article $article, ArticleRequest $request)
     {
-       
         $article->update($request->all());
+       
+        //$article->tags()->sync($request->input('tag_list'));
+
+        $this->syncTag($article, $request->input('tag_list'));
+
+        flash('Your Article Has Been Updated And Saved');
 
         return redirect('articles');
+    }
+
+    private function syncTag(article $article, array $tags)
+    {
+        $article->tags()->sync($tags);
+    }
+
+    private function createArticle(ArticleRequest $request)
+    {
+        //$article = new article($request->all());
+
+        //Auth::user()->articles()->save($article);
+
+        $article = Auth::user()->articles()->create($request->all());
+        //the line above can be used to replace the two lines above. just remember tinker Create and Save methods.
+
+        $article->tags()->attach($request->input('tag_list'));
+
+        return ($article);
     }
 
 }

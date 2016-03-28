@@ -4,37 +4,39 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    {!! HTML::style('css/all.css') !!}
+    {!! HTML::style('css/app.css') !!}
 
-    <script src="//code.jquery.com/jquery.js"></script>
-
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
-
-    <script>
-        $( document).ready( function(){
-            $('div.alert').not('.alert-important').delay(3000).slideUp(300);
-
-            //$('#flash-overlay-modal').modal();
-        });
-    </script>
 
 	<title>Master</title>
 </head>
 <body>
+<div class="page-header">
+    @include('partials.navbar')
+</div>
 
 <div class="container">
-	
-	{{-- @include('partials.flash') --}}
 
-	@include('flash::message')
 
-	@yield('content')
+    {!! HTML::script('js/all.js') !!}
+    <script>
+        $( document).ready( function(){
+            $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+
+                //$('#flash-overlay-modal').modal();
+        });
+    </script>
+    
+    {{-- @include('partials.flash') --}}
+
+    @include('flash::message')
+
+    @yield('content')
 
 </div>
 
-	@yield('footer')
+    @yield('footer')
 
 </body>
+
 </html>

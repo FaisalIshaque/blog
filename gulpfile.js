@@ -14,17 +14,22 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     
 
-   // mix.sass('app.scss').coffee('module.coffee');
+	mix.sass('app.scss', 'public/css');
 
     mix.styles([
-    	'vendor/normalize.css',
-    	'app.css'
-    	], null, 'public/css');
+    	'/libs/bootstrap.min.css',
+    	'/libs/select2.min.css',
+    	]);
+
+    mix.scripts([
+    	'/libs/jquery.js',
+    	'/libs/select2.min.js',
+     	]);
 
     	//the second argument 'null' is the ouput directory.file
     	//the third output 'public/css' is the base directory
 
-    mix.version('public/css/all.css');
+   // mix.version('public/css/all.css');
 
   //  mix.phpUnit();
 });

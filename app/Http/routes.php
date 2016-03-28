@@ -43,6 +43,8 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('tasks', 'TasksController@index');
 	Route::get('tasks/{id}', 'TasksController@show');
 
+	Route::get('tags/{tags}', 'TagsController@show');
+
 	/*Route::controllers([
 		'auth' => 'Auth\AuthController',
 		'password' => 'Auth\PasswordController',
