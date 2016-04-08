@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ArticleRequest;
 
+use App\Jobs\QueueHiddenArticles;
+
 use Carbon\Carbon;
 
 use App\article;
@@ -36,10 +38,7 @@ class ArticlesController extends Controller
     	//$articles = article::latest('published_at')->where('published_at','<=', Carbon::now())->get();
         //to display articles whose publish date is not in future i.e its it less than carbon::now()
 
-        $articles = article::latest('published_at')->Published()->get();
-
-
-        //$articles = article::latest('published_at')->UnPublished()->get();
+        $articles = article::latest('published_at')->published()->get();
 
     	return view('articles.articles', compact('articles'));
     }
@@ -69,10 +68,20 @@ class ArticlesController extends Controller
    public function store(ArticleRequest $request)
     {
 
-        //dd($request->get('tag_list[]'));
-       
 
-        $this->createArticle($request);
+        $article = $this->createArticle($request);
+
+        
+        if ($article->published_at > Carbon::now())
+        {
+
+            $interval = date_diff(Carbon::now(),$article->published_at);
+            $interval = $interval->days * 86400;
+
+            $job = (new QueueHiddenArticles($article))->delay($interval);
+            
+            $this->dispatch($job);
+        }
 
         //\Session::flash('flash_message', 'Your atricle has been created and saved');
 
@@ -88,6 +97,7 @@ class ArticlesController extends Controller
 
 
         return redirect('articles');
+
 
     }
     

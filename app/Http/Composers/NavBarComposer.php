@@ -10,7 +10,7 @@ class NavBarComposer
 {
     public function compose(View $view)
     {
-        $view->with('latest', article::latest()->first());
+        $view->with('latest', article::latest('published_at')->published()->first());
     }
 
     

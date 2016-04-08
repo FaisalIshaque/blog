@@ -8,14 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="http://localhost/blog/public/home">Blog</a>
+      <a class="navbar-brand" href="http://localhost/laravel-blog/public/home">Blog</a>
     </div>
 
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="http://localhost/blog/public/articles">Articles</a></li>
-        <li><a href="http://localhost/blog/public/about">About</a></li>
-        <li><a href="http://localhost/blog/public/contact">Contact</a></li>
+        <li><a href="http://localhost/laravel-blog/public/articles">Articles</a></li>
+        <li><a href="http://localhost/laravel-blog/public/about">About</a></li>
+        <li><a href="http://localhost/laravel-blog/public/contact">Contact</a></li>
       </ul>
    
 
