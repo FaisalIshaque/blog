@@ -72,14 +72,14 @@ class ArticlesController extends Controller
         $article = $this->createArticle($request);
 
         
-        if ($article->published_at > Carbon::now())
+        if ($request->published_at > Carbon::now())
         {
 
-            $interval = date_diff(Carbon::now(),$article->published_at);
-            $interval = $interval->days * 86400;
+            /*$interval = date_diff(Carbon::now(),$article->published_at);
+            $interval = $interval->days * 86400;*/
 
-            $job = (new QueueHiddenArticles($article))->delay($interval);
-            
+            $job = (new QueueHiddenArticles($article));/*->delay($interval);
+            */
             $this->dispatch($job);
         }
 
